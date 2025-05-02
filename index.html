@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gujarati Baby Names</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+    }
+    
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: radial-gradient(circle, #0FEA00, #28961F, #1B491C, #000);
+      color: white;
+      padding: .1em;
+      text-align: center;
+      font-size: 2em;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      text-shadow: 2px 2px 3px green;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 1em;
+      position: relative;
+    }
+    .gender-select {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    select {
+      padding: 0.6em;
+      font-size: 1em;
+    }
+    .char-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5em;
+      margin-bottom: 2em;
+    }
+    .char-buttons button {
+      padding: 0.7em 1em;
+      font-size: 1.2em;
+      background: #fdd835;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .rashis {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3em;
+      justify-content: center;
+      margin-bottom: 2em;
+    }
+    .rashis div {
+      text-align: center;
+      cursor: pointer;
+    }
+    .rashis img {
+      width: 100px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .rashis span {
+      display: block;
+      margin-top: 0.4em;
+      font-weight: bold;
+    }
+
+    /* Overlay and popup */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .names-box {
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      max-width: 90%;
+      max-height: 80%;
+      overflow-y: auto;
+      text-align: center;
+      font-size: 1.2em;
+      position: relative;
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: red;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+  #whatsappBtn {
+    position: fixed;
+    left: 15%;
+    bottom: 10px;
+    background-color: #25D366;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+}
+#whatsappBtn:hover {
+      background-color: #1ebe5d;
+}
+
+.special-name-wrapper {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+#specialNameBtn {
+  background: linear-gradient(to right, #FF6F61, #D32F2F);  /* Vibrant Red Gradient */
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: transform 0.2s, background 0.3s;
+}
+
+#specialNameBtn:hover {
+  background: linear-gradient(to right, #C62828, #FF3D00);  /* Darker Red on hover */
+  transform: scale(1.05);
+}
+
+
+.ad-note {
+  background: #FFEB3B;  /* Bright Yellow Background */
+  text-align: center;
+  padding: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 2em;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+}
+
+.ad-note p {
+  margin: 0;
+}
+
+.ad-note strong {
+  color: #D32F2F; /* Red for emphasis */
+}
+
+  </style>
+</head>
+<body>
+
+<header>ફયબા</header>
+
+<div class="container">
+  
+<div class="special-name-wrapper">
+  <button id="specialNameBtn" onclick="showSpecialNames()">👉🏻 રાજ નામ ની સૂચિ 👈🏻</button>
+</div>
+  
+  <div class="gender-select">
+    <label for="gender"><big>લિંગ પસંદ કરો:- </big></big></label>
+    <select id="gender">
+      <option value="">-- પસંદ કરો --</option>
+      <option value="boy">છોકરો</option>
+      <option value="girl">છોકરી</option>
+    </select>
+  </div>
+
+  <div class="char-buttons">
+    <button data-char="અ">અ</button>
+    <button data-char="આ">આ</button>
+    <button data-char="ઇ">ઇ</button>
+    <button data-char="ઈ">ઈ</button>
+    <button data-char="ઉ">ઉ</button>
+    <button data-char="ઊ">ઊ</button>
+    <button data-char="એ">એ</button>
+    <button data-char="ઐ">ઐ</button>
+    <button data-char="ઓ">ઓ</button>
+    <button data-char="ઔ">ઔ</button>
+  </div>
+
+  <div class="rashis">
+    <div data-rashi="મેષ">
+      <img src="મેષ.png" />
+      <span>મેષ<br>(અ, લ, ઈ)</span>
+    </div>
+    <div data-rashi="વૃષભ">
+      <img src="વૃષભ.png" />
+      <span>વૃષભ<br>(બ, વ, ઉ)</span>
+    </div>
+    <div data-rashi="મિથુન">
+      <img src="મિથુન.png" />
+      <span>મિથુન<br>(ક, છ, ઘ)</span>
+    </div>
+    <div data-rashi="કર્ક">
+      <img src="કર્ક.png" />
+      <span>કર્ક<br>(ડ, હ)</span>
+    </div>
+    <div data-rashi="સિંહ">
+      <img src="સિંહ.png" />
+      <span>સિંહ<br>(મ, ટ)</span>
+    </div>
+    <div data-rashi="કન્યા">
+      <img src="કન્યા.png" />
+      <span>કન્યા<br>(પ, ઠ, ણ)</span>
+    </div>
+    <div data-rashi="તુલા">
+      <img src="તુલા.png" />
+      <span>તુલા<br>(ર, ત)</span>
+    </div>
+    <div data-rashi="વૃશ્ચિક">
+      <img src="વૃશ્ચિક.png" />
+      <span>વૃશ્ચિક<br>(ન, ય)</span>
+    </div>
+    <div data-rashi="ધન">
+      <img src="ધન.png" />
+      <span>ધન<br>(ભ, ધ, ફ, ઢ)</span>
+    </div>
+    <div data-rashi="મકર">
+      <img src="મકર.png" />
+      <span>મકર<br>(ખ, જ)</span>
+    </div>
+    <div data-rashi="મકર">
+      <img src="કુંભ.png" />
+      <span>કુંભ<br>(ગ, સ, શ, ષ)</span>
+    </div>
+    <div data-rashi="મકર">
+      <img src="મીન.png" />
+      <span>મીન<br>(દ, ચ, ઝ, થ)</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Overlay and Popup -->
+<div class="overlay" id="overlay">
+  <div class="names-box" id="namesBox">
+    <span class="close-btn" onclick="closeNamesBox()">×</span>
+    <div id="namesContent"></div>
+  </div>
+</div>
+
+<!-- Advertisement or Note at the end -->
+<div class="ad-note">
+  <p>કોઈ નવું નામ જણાવવા માટે નીચેના બટન પર ક્લિક કરો.</strong></p>
+</div><br /><br /><br /><br />
+
+  <button onclick="startWhatsAppChat()" id="whatsappBtn">
+    <img src="https://img.icons8.com/color/24/000000/whatsapp--v1.png" alt="WhatsApp" style="vertical-align:middle; margin-right:8px;">
+    Chat with Me on WhatsApp
+  </button>
+<script>
+  const namesByChar = {
+    'અ': { boy: ['અજય', 'અનિલ'], girl: ['અનિતા', 'અમિતા'] },
+    'આ': { boy: ['આકાશ', 'આનંદ'], girl: ['આશા', 'આરતી'] },
+    'ઇ': { boy: ['ઇમરાન'], girl: ['ઇશ્વરી'] },
+    'ઈ': { boy: ['ઈશ્વર'], girl: ['ઈશા'] },
+    'ઉ': { boy: ['ઉમેશ'], girl: ['ઉર્મિલ'] },
+    'ઊ': { boy: ['ઊર્વિશ'], girl: ['ઊર્મિલા'] },
+    'એ': { boy: ['એહમદ'], girl: ['એશ્વરીયા'] },
+    'ઐ': { boy: ['ઐયાર'], girl: ['ઐશ્વર્યા'] },
+    'ઓ': { boy: ['ઓમ'], girl: ['ઓમિકા'] },
+    'ઔ': { boy: ['ઔદિચ્ય'], girl: ['ઔર્શી'] }
+  };
+
+  const namesByRashi = {
+    'મેષ': { boy: ['મયંક', 'મહેશ'], girl: ['મંજુ', 'મિહિકા'] },
+    'વૃષભ': { boy: ['વિજય', 'વિરલ'], girl: ['વિદ્યા', 'વિષ્ણુપ્રિયા'] },
+    'મિથુન': { boy: ['મિતુલ'], girl: ['મિતાલી'] },
+    'કર્ક': { boy: ['કિરણ'], girl: ['કાવ્યા'] },
+    'સિંહ': { boy: ['સૂરજ'], girl: ['સ્નેહા'] },
+    'કન્યા': { boy: ['કવિ'], girl: ['કન્યા'] },
+    'તુલા': { boy: ['તુષાર'], girl: ['તનવી'] },
+    'વૃશ્ચિક': { boy: ['વિદિષ'], girl: ['વૃષિકા'] },
+    'ધન': { boy: ['ધીરજ'], girl: ['ધ્વનિ'] },
+    'મકર': { boy: ['મયૂર'], girl: ['મયૂરા'] }
+  };
+
+  const genderSelect = document.getElementById('gender');
+  const charButtons = document.querySelectorAll('.char-buttons button');
+  const rashiDivs = document.querySelectorAll('.rashis div');
+  const overlay = document.getElementById('overlay');
+  const namesContent = document.getElementById('namesContent');
+
+  function showNamesBox(content) {
+    namesContent.innerHTML = content;
+    overlay.style.display = 'flex';
+  }
+
+  function closeNamesBox() {
+  overlay.style.display = 'none';
+  }
+
+  charButtons.forEach(button => {
+    button.addEventListener('click', () => {
+const gender = genderSelect.value;
+      if (!gender) {
+        alert('કૃપા કરીને પહેલા લિંગ પસંદ કરો.');
+        return;
+      }
+
+const char = button.dataset.char;
+const names = namesByChar[char]?.[gender];
+
+const content = names
+        ? `<br><strong>અક્ષર "${char}" માટે નામો:</strong><br><br>${names.join(' | ')}`
+        : 'કોઈ નામ મળ્યાં નથી.';
+
+      showNamesBox(content);
+    });
+  });
+
+  rashiDivs.forEach(div => {
+    div.addEventListener('click', () => {
+const gender = genderSelect.value;
+      if (!gender) {
+        alert('કૃપા કરીને પહેલા લિંગ પસંદ કરો.');
+        return;
+      }
+
+const rashi = div.dataset.rashi;
+const names = namesByRashi[rashi]?.[gender];
+
+const content = names
+        ? `<br><strong>રાશિ "${rashi}" માટે નામો:</strong><br><br>${names.join(' | ')}`
+        : 'કોઈ નામ મળ્યાં નથી.';
+
+      showNamesBox(content);
+    });
+  });
+
+  // Optional: close when clicking outside the box
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+      closeNamesBox();
+    }
+  });
+
+function startWhatsAppChat() {
+    const phone = "919510591045"; // Replace with your number
+      const url = `https://api.whatsapp.com/send?phone=${phone}`;
+      window.open(url, "_blank");
+    }
+    
+    function showSpecialNames() {
+  const names = ['અર્ધિતા', 'મયૂરેશ', 'ઇશ્વર્યા', 'કિરણજ્યોતિ', 'આનંદીતા'];
+  const content = `<br><strong>ખાસ નામો:</strong><br><br>${names.join(' | ')}`;
+  showNamesBox(content);
+}
+
+
+</script>
+
+</body>
+</html>
