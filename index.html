@@ -192,6 +192,22 @@
   color: #D32F2F; /* Red for emphasis */
 }
 
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 5px;
+}
   </style>
 </head>
 <body>
@@ -214,16 +230,35 @@
   </div>
 
   <div class="char-buttons">
-    <button data-char="અ">અ</button>
-    <button data-char="આ">આ</button>
-    <button data-char="ઇ">ઇ</button>
-    <button data-char="ઈ">ઈ</button>
-    <button data-char="ઉ">ઉ</button>
-    <button data-char="ઊ">ઊ</button>
-    <button data-char="એ">એ</button>
-    <button data-char="ઐ">ઐ</button>
-    <button data-char="ઓ">ઓ</button>
-    <button data-char="ઔ">ઔ</button>
+<button data-char="અ">અ</button>
+<button data-char="આ">આ</button>
+<button data-char="ઈ">ઈ</button>
+<button data-char="ઉ">ઉ</button>
+<button data-char="ૠ">ૠ</button>
+<button data-char="ક">ક</button>
+<button data-char="ખ">ખ</button>
+<button data-char="ગ">ગ</button>
+<button data-char="ઘ">ઘ</button>
+<button data-char="ચ">ચ</button>
+<button data-char="છ">છ</button>
+<button data-char="જ">જ</button>
+<button data-char="ટ">ટ</button>
+<button data-char="ત">ત</button>
+<button data-char="દ">દ</button>
+<button data-char="ધ">ધ</button>
+<button data-char="ન">ન</button>
+<button data-char="પ">પ</button>
+<button data-char="ફ">ફ</button>
+<button data-char="બ">બ</button>
+<button data-char="ભ">ભ</button>
+<button data-char="મ">મ</button>
+<button data-char="ય">ય</button>
+<button data-char="ર">ર</button>
+<button data-char="લ">લ</button>
+<button data-char="વ">વ</button>
+<button data-char="શ">શ</button>
+<button data-char="સ">સ</button>
+<button data-char="હ">હ</button>
   </div>
 
   <div class="rashis">
@@ -296,32 +331,8 @@
     <img src="https://img.icons8.com/color/24/000000/whatsapp--v1.png" alt="WhatsApp" style="vertical-align:middle; margin-right:8px;">
     Chat with Me on WhatsApp
   </button>
+  <script src="main.js" type="text/javascript" charset="utf-8"></script>
 <script>
-  const namesByChar = {
-    'અ': { boy: ['અજય', 'અનિલ'], girl: ['અનિતા', 'અમિતા'] },
-    'આ': { boy: ['આકાશ', 'આનંદ'], girl: ['આશા', 'આરતી'] },
-    'ઇ': { boy: ['ઇમરાન'], girl: ['ઇશ્વરી'] },
-    'ઈ': { boy: ['ઈશ્વર'], girl: ['ઈશા'] },
-    'ઉ': { boy: ['ઉમેશ'], girl: ['ઉર્મિલ'] },
-    'ઊ': { boy: ['ઊર્વિશ'], girl: ['ઊર્મિલા'] },
-    'એ': { boy: ['એહમદ'], girl: ['એશ્વરીયા'] },
-    'ઐ': { boy: ['ઐયાર'], girl: ['ઐશ્વર્યા'] },
-    'ઓ': { boy: ['ઓમ'], girl: ['ઓમિકા'] },
-    'ઔ': { boy: ['ઔદિચ્ય'], girl: ['ઔર્શી'] }
-  };
-
-  const namesByRashi = {
-    'મેષ': { boy: ['મયંક', 'મહેશ'], girl: ['મંજુ', 'મિહિકા'] },
-    'વૃષભ': { boy: ['વિજય', 'વિરલ'], girl: ['વિદ્યા', 'વિષ્ણુપ્રિયા'] },
-    'મિથુન': { boy: ['મિતુલ'], girl: ['મિતાલી'] },
-    'કર્ક': { boy: ['કિરણ'], girl: ['કાવ્યા'] },
-    'સિંહ': { boy: ['સૂરજ'], girl: ['સ્નેહા'] },
-    'કન્યા': { boy: ['કવિ'], girl: ['કન્યા'] },
-    'તુલા': { boy: ['તુષાર'], girl: ['તનવી'] },
-    'વૃશ્ચિક': { boy: ['વિદિષ'], girl: ['વૃષિકા'] },
-    'ધન': { boy: ['ધીરજ'], girl: ['ધ્વનિ'] },
-    'મકર': { boy: ['મયૂર'], girl: ['મયૂરા'] }
-  };
 
   const genderSelect = document.getElementById('gender');
   const charButtons = document.querySelectorAll('.char-buttons button');
@@ -350,7 +361,7 @@ const char = button.dataset.char;
 const names = namesByChar[char]?.[gender];
 
 const content = names
-        ? `<br><strong>અક્ષર "${char}" માટે નામો:</strong><br><br>${names.join(' | ')}`
+        ? `<br><strong>અક્ષર "${char}" માટે નામો:</strong><br><br>${names.join('<br>')}`
         : 'કોઈ નામ મળ્યાં નથી.';
 
       showNamesBox(content);
@@ -369,7 +380,7 @@ const rashi = div.dataset.rashi;
 const names = namesByRashi[rashi]?.[gender];
 
 const content = names
-        ? `<br><strong>રાશિ "${rashi}" માટે નામો:</strong><br><br>${names.join(' | ')}`
+        ? `<br><strong>રાશિ "${rashi}" માટે નામો:</strong><br><br>${names.join('<br>')}`
         : 'કોઈ નામ મળ્યાં નથી.';
 
       showNamesBox(content);
@@ -389,13 +400,6 @@ function startWhatsAppChat() {
       window.open(url, "_blank");
     }
     
-    function showSpecialNames() {
-  const names = ['અર્ધિતા', 'મયૂરેશ', 'ઇશ્વર્યા', 'કિરણજ્યોતિ', 'આનંદીતા'];
-  const content = `<br><strong>ખાસ નામો:</strong><br><br>${names.join(' | ')}`;
-  showNamesBox(content);
-}
-
-
 </script>
 
 </body>
